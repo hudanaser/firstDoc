@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('contact', function () {
-    return view('contact');
+
+
+Route::get('about',function(){
+$name='huda';
+
+return view('about',compact('name' ));
+
+});
+Route::post('send',function(Request $request){
+    $name = $request->myname ;
+    return view('about',compact('name'));
 });
