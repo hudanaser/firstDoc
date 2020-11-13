@@ -6,14 +6,11 @@
     <title>about</title>
 </head>
 <body>
-    <h1> my name is {{$name}} </h1>
-
-    <form  action="send" method="POST">
-    @csrf
-    name
-    <input type="text" name="myname" id="myname">
-    <input type="submit" value="send">
-    </form>
+  <ul>
+    @foreach ($tasks as $id => $task)
+  <li> <a href="{{'task/show/' . $id}}"> <h4> {{$task}}</h4></a></li>
+  @endforeach
+</ul>
 
 </body>
 </html>
