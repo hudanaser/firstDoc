@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,36 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('tasks', function () {
+    $tasks = DB::table('tasks')->get();
+    return view('tasks', compact('tasks'));
 
-
-Route::get('about',function(){
-$name='huda';
-
-return view('about',compact('name' ));
 });
 
+Route::get('tasks/show/{id}', function ($id) {
+    $task = DB::table('tasks')->find($id);
+    //dd ($task);
+    return view('show', compact('task'));
 
-Route::post('send',function(Request $request){
-    $name = $request->myname ;
-    return view('about',compact('name'));
 });
-
-
-
-Route::get('tasks',function(){
-    $tasks = [
-    'task1', 'task2' ,'task3'];
-
-    return view('tasks',compact('tasks' ));
-
-    });
-
-
-    Route::get('task/show/{id}',function($id){
-        $tasks = [
-        'task1', 'task2' ,'task3'];
-        $task = $tasks[$id];
-
-        return view('show',compact('task' ));
-
-        });
