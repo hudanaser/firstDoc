@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,5 +35,18 @@ Route::get('tasks/show/{id}', function ($id) {
 
 Route::get('app', function () {
     $tasks = DB::table('tasks')->get();
+    return view('todo', compact('tasks'));
+});
+Route::post('store', function (Request $request) {
+     DB::table('tasks')->insert([
+          'title' => $request->title
+]);
+$task = DB::table('tasks')->orderBy('title' , 'desc')->get();
+return redirect()->back();
+});
+
+Route::get('app', function () {
+    $tasks = DB::table('tasks')->orderBy('title','asc')-> get();
+
     return view('todo', compact('tasks'));
 });
