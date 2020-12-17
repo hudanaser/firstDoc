@@ -34,14 +34,16 @@ Route::get('tasks/show/{id}', function ($id) {
 });
 
 Route::get('app', function () {
-    $tasks = DB::table('tasks')->get();
+    //$tasks = DB::table('tasks')->get();
+    $tasks=Task::all();
     return view('todo', compact('tasks'));
 });
 Route::post('store', function (Request $request) {
-     DB::table('tasks')->insert([
-          'title' => $request->title
-]);
-$task = DB::table('tasks')->orderBy('title' , 'desc')->get();
+   //  DB::table('tasks')->insert([
+   //       'title' => $request->title]);
+$task = new Task;
+$task->title = $request->title ;
+$task->save();
 return redirect()->back();
 });
 
@@ -50,3 +52,11 @@ Route::get('app', function () {
 
     return view('todo', compact('tasks'));
 });
+
+
+Route::post('delete/{id}', function ( $id) {
+    $flight = Task::find($id);
+
+    $flight->delete();
+     return redirect()->back();
+    });
