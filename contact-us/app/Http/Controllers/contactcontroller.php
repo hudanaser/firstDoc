@@ -11,7 +11,7 @@ class contactcontroller extends Controller
 public function index()
 {
     $contacts = Contact::all();
-    return view('contact-list', compact('contacts'));
+    return view('index', compact('contacts'));
 }
 public function contact()
 {
@@ -20,6 +20,8 @@ public function contact()
 }
 public function store(Request $request)
 {
+    $data = $request->validate(['firstname'=>'required','lastname'=>'required','emali'=>'required']);
+
 $contact = new Contact ;
 $contact->Fname = $request->firstname;
 $contact->Lname = $request->lastname;
@@ -28,16 +30,31 @@ $contact->save();
 return redirect('/');
 
 }
-public function delete($id)
+public function destroy($id)
 {
-    $flight = Contact::find($id);
-    $flight->delete();
-    return redirect()->back();
+    $contact = Contact::find($id);
+    $contact->delete();
+    return redirect('/');
 }
-public function update($id)
+
+
+public function update(Request $request, $id  )
 {
-$flight = Contact::find($id);
-    $flight->update();
-    return view('contact');
+ $contact= Contact::find($id);
+$contact->Fname = $request->firstname;
+$contact->Lname = $request->lastname;
+$contact->email = $request->email;
+$contact->save();
+
+    return redirect('/');
+}
+
+
+public function edit($id)
+{$contact= Contact::find($id);
+
+    return view('edit' , compact('contact'));
+
+
 }
 }

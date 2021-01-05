@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[contactcontroller::class,'index']);
 Route::get('/contact', [contactcontroller::class,'contact']);
 Route::post('store', [contactcontroller::class ,'store']);
-Route::post('delete/{id}', [contactcontroller::class ,'delete']);
-Route::post('update/{id}', [contactcontroller::class ,'update']);
+Route::put('edit/{id}', [contactcontroller::class ,'edit']);
+Route::patch('update/{id}', [contactcontroller::class ,'update']);
+Route::delete('destroy/{id}', [contactcontroller::class ,'destroy']);
 
